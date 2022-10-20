@@ -6,7 +6,8 @@ const github = require('@actions/github');
 
 async function main() {
   try { 
-    let co = await git.readCommit({ fs, dir: '.', oid: github.context.sha })
+    core.info('start checking ...');
+    let co = await git.readCommit({ fs, dir: '.', oid: github.context.sha });
     const domains = core.getInput('domains').split(',');
     core.info('check ' + co.commit.author.email + ' matches ' + domains);
     if (!(check_domain(co.commit.author.email, domains))) {
